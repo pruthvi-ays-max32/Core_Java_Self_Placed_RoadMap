@@ -15,8 +15,8 @@
 -> Yes, abstract class has a constructor becasue it can have variables, so to initialize those variables we need constructor. and when we create object of child class then the constructor of child class gets called then we just need to add first line of child constructor to super() so it calls the constructor of parent before its constructor.
 
 🔹 Q5: What is the difference between static methods in interfaces and static methods in classes?
--> In classes, for calling static method we don't need to create object of that class but in interface its not possible to create an object. both the methods can be called using Classname and interface name.
-but you provide me cleared answer i am still confused about my answerr.
+-> In a class, a static method belongs to the class itself, and subclasses do not inherit it.
+In an interface, static methods cannot be overridden by implementing classes and must be accessed using the interface name.
 
 🔹 Q6: Explain access modifiers in Java and where they can be applied.
 -> Access Modifiers in java is used to retrict the access of properties and methods. There are 4 types of access modifiers in java. 1. public 2. private 3. protected 4. default , public is less restrected between above all and private is more restrective. they can be applied to class, variable, methods etc. 
@@ -32,3 +32,4 @@ but you provide me cleared answer i am still confused about my answerr.
 
 🔹 Q10: What is an anonymous inner class? Give a real-world example where it's useful.
 -> a inner class which doesn't have its name. it is used for quick implementation. mostly used with interfaces and abstract classes. 
+eg. Event handling in GUI applications
