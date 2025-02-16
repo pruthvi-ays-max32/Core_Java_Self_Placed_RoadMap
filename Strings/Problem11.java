@@ -15,7 +15,15 @@ class Main{
     Scanner sc = new Scanner(System.in);
     String ogStr = sc.nextLine();
     String originalString = ogStr.replaceAll("\\s", "").toLowerCase();
-    String rev = new StringBuilder(originalString).reverse().toString();
+
+    // Method 1 : using Normal Method.
+     String rev = "";
+    for (int i = originalString.length() - 1; i >= 0; i--) {
+      rev += originalString.charAt(i);
+    }
+
+    // Method 2 : Using StringBuilder.
+    // String rev = new StringBuilder(originalString).reverse().toString();
 
     if(rev.equals(originalString)){
       System.out.println("Given String is Palindrome.");
