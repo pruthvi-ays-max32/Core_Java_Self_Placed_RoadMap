@@ -10,7 +10,7 @@ class BankAccount {
 
     BankAccount(String ownerName, double balance){
       this.ownerName = ownerName;
-      this.balance = balance;
+      this.balance = Math.max(balance, 0);
     }
 
     public void withdraw(double amt){
