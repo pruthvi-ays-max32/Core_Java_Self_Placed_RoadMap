@@ -2,18 +2,19 @@
 
 ## What is the List Interface?
 
-The `List` interface in Java is a part of the `java.util` package and is a subinterface of `Collection`. It represents an **ordered collection** (also known as a sequence) that can contain **duplicate elements**. Lists allow precise control over where each element is inserted and can be accessed by their integer index (position in the list).
+The `List` interface is part of the `java.util` package and extends the `Collection` interface. It represents an **ordered collection** of elements that may contain **duplicates**. Lists allow elements to be inserted or accessed based on their position (index).
 
 ### Key Features:
-- Maintains **insertion order**.
-- Allows **duplicate elements**.
-- Provides **positional access** and **insertion** of elements.
+- Maintains **insertion order**
+- Allows **duplicate** elements
+- Supports **index-based** operations
+- Can be iterated in various ways
 
 ---
 
 ## Types of List Implementations
 
-Java provides several classes that implement the `List` interface, the most commonly used ones are:
+Java provides several commonly used implementations of the `List` interface:
 
 1. **ArrayList**
 2. **LinkedList**
@@ -26,11 +27,10 @@ Java provides several classes that implement the `List` interface, the most comm
 | Feature                | ArrayList                         | LinkedList                        | Vector                            |
 |------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
 | **Data Structure**     | Dynamic array                     | Doubly linked list                | Dynamic array                     |
-| **Performance**        | Fast in accessing elements        | Fast in manipulation (insert/delete) | Slower compared to ArrayList     |
-| **Insertion/Deletion** | Slower (due to shifting elements) | Faster (no shifting, just pointer changes) | Slower due to synchronization    |
-| **Thread Safety**      | Not synchronized (not thread-safe) | Not synchronized (not thread-safe) | Synchronized (thread-safe)       |
-| **Memory**             | Less memory usage                 | More memory usage (due to pointers) | More memory (due to synchronization overhead) |
-| **When to Use**        | When frequent access is needed    | When frequent insertions/deletions are needed | When thread-safe operations are needed |
+| **Performance**        | Fast access, slow insert/delete   | Slow access, fast insert/delete   | Slower due to synchronization     |
+| **Thread Safety**      | Not thread-safe                   | Not thread-safe                   | Thread-safe (synchronized)        |
+| **Memory Usage**       | Less                              | More (extra pointers)             | More (sync overhead)              |
+| **When to Use**        | When access is frequent           | When modifications are frequent   | When thread safety is required    |
 
 ---
 
@@ -48,12 +48,118 @@ Java provides several classes that implement the `List` interface, the most comm
 | `isEmpty()`                     | Checks if the list is empty. |
 | `contains(Object o)`            | Returns true if the list contains the specified element. |
 | `indexOf(Object o)`             | Returns the index of the first occurrence of the element. |
-| `lastIndexOf(Object o)`         | Returns the index of the last occurrence of the element. |
 | `clear()`                       | Removes all elements from the list. |
 | `toArray()`                     | Converts the list into an array. |
 | `iterator()`                    | Returns an iterator over the elements. |
-| `listIterator()`                | Returns a list iterator starting at the beginning. |
-| `subList(int from, int to)`     | Returns a portion of the list between the specified indexes. |
+| `listIterator()`                | Returns a list iterator for bidirectional traversal. |
+| `subList(int from, int to)`     | Returns a view of a portion of the list. |
+
+---
+
+## Sorting Objects in a List
+
+### 1. Using `Comparable` (Natural Ordering)
+
+```java
+class Student implements Comparable<Student> {
+    String name;
+    int marks;
+
+    public Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public int compareTo(Student s) {
+        return this.marks - s.marks; // Ascending
+    }
+}
+
+// Usage
+List<Student> students = new ArrayList<>();
+students.add(new Student("Alice", 85));
+students.add(new Student("Bob", 92));
+students.add(new Student("Charlie", 78));
+
+Collections.sort(students); // Uses compareTo
+
+```
+### 2. Using Comparator (Custom Ordering)
+```java
+class NameComparator implements Comparator<Student> {
+    public int compare(Student s1, Student s2) {
+        return s1.name.compareTo(s2.name);
+    }
+}
+
+// Usage
+Collections.sort(students, new NameComparator());
+
+// OR Using Lambda
+students.sort((s1, s2) -> s1.name.compareTo(s2.name));
+```
+
+
+---
+
+## Searching In List 
+
+1. Using contains():
+```
+     list.contains("item");
+```
+2. Using indexOf():
+```
+     int index = list.indexOf("item");
+```
+3. Using Stream (for complex objects):
+```
+     boolean found = students.stream().anyMatch(s -> s.name.equals("Alice"));
+```
+
+
+---
+
+## Iterating Over a List
+1. Normal for loop
+```
+    for (int i = 0; i < list.size(); i++) {
+        System.out.println(list.get(i));
+    }
+```
+2. Enhanced for-each loop
+```
+   for (String item : list) {
+    System.out.println(item);
+    }
+```
+3. Iterator
+```
+    Iterator<String> it = list.iterator();
+    while (it.hasNext()) {
+        System.out.println(it.next());
+    }
+```
+
+4. ListIterator (Bi-directional)
+
+```
+    ListIterator<String> listIt = list.listIterator();
+    while (listIt.hasNext()) {
+        System.out.println(listIt.next());
+    }
+    while (listIt.hasPrevious()) {
+        System.out.println(listIt.previous());
+    }
+```
+
+5. Java 8 forEach with Lambda
+
+```
+    list.forEach(item -> System.out.println(item));
+```
+
 
 ---
 
