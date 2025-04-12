@@ -1,35 +1,167 @@
-🔹 Q1: What is the difference between abstract class and interface in Java?
--> we can have constructor of abstract class but don't for Interface.
--> we can have concrete + abstract methods in abstract class but in interface we have methods which are by default public and abstract thanks to Java 8 because now interface can have default and static methods also.
--> abstract class provides partial abstraction while interface provides 100% abstraction.
--> we can't extends more than one class but can implements one or more interface to achieve multiple inheritance.
--> interface defines contract which all implemented classes have to follow it. but abstraction provides some common methods and some methods to implement to child class.
+# 💡 Core Java Interview Questions & Answers
 
-🔹 Q2: Can we create an object of an abstract class? If not, how can we use it?
--> No, we can't create object of an abstract class. if we wanted to access the properties and methods of abstract class then we need to create object of child of abstract class (who extends the abstract class.). By creating object of that class we can access the abstract class methods and properties.
+---
 
-🔹 Q3: What are default methods in interfaces? How do they work?
--> Suppose, we have an interface which is implemented by 100 of classes and now we wanted to add one method to interface then logically we have to implement that method inside all those 100 classes. so java 8 onwards to solve this problem they introduced Default methods in interfaces which can have implementation body inside the interface to overcome this problem.
+###  Q1: What is the difference between abstract class and interface in Java?
 
-🔹 Q4: Can an abstract class have a constructor? Why or why not?
--> Yes, abstract class has a constructor becasue it can have variables, so to initialize those variables we need constructor. and when we create object of child class then the constructor of child class gets called then we just need to add first line of child constructor to super() so it calls the constructor of parent before its constructor.
+| Feature                  | Abstract Class                             | Interface                                           |
+|--------------------------|--------------------------------------------|-----------------------------------------------------|
+| Constructors             | Can have constructors                      | Cannot have constructors                            |
+| Method Types             | Can have both concrete and abstract methods| Only public & abstract methods (default/static from Java 8) |
+| Abstraction              | Provides partial abstraction               | Provides 100% abstraction                           |
+| Multiple Inheritance     | Cannot extend more than one class          | Can implement multiple interfaces                   |
+| Design Purpose           | Provides some common behavior              | Defines a contract that must be followed            |
 
-🔹 Q5: What is the difference between static methods in interfaces and static methods in classes?
--> In a class, a static method belongs to the class itself, and subclasses do not inherit it.
-In an interface, static methods cannot be overridden by implementing classes and must be accessed using the interface name.
+---
 
-🔹 Q6: Explain access modifiers in Java and where they can be applied.
--> Access Modifiers in java is used to retrict the access of properties and methods. There are 4 types of access modifiers in java. 1. public 2. private 3. protected 4. default , public is less restrected between above all and private is more restrective. they can be applied to class, variable, methods etc. 
+###  Q2: Can we create an object of an abstract class? If not, how can we use it?
 
-🔹 Q7: What is the purpose of a static block? When does it execute?
--> Static block executes when class gets loaded even before the constructor gets called. it is used to perform some tasks before our application gets started like database connection etc.
+- ❌ No, we cannot instantiate an abstract class directly.
+- ✅ To use it, create a subclass that extends the abstract class, then instantiate the subclass to access the abstract class's members.
 
-🔹 Q8: Can a static method access instance variables? Why or why not?
--> No Static methods can't access instance variables. because for instance variables associated with instances and static methods associated with class.
+```java
+abstract class Animal {
+    void eat() {
+        System.out.println("Eating...");
+    }
+}
 
-🔹 Q9: What are inner classes? Name the four types of inner classes in Java.
--> Inner classes defined as classes inside the class. 4 types are 1. Anonymous inner class 2. static inner class 3. member inner class/ non-static inner class 4. LocalInner Class
+class Dog extends Animal {}
 
-🔹 Q10: What is an anonymous inner class? Give a real-world example where it's useful.
--> a inner class which doesn't have its name. it is used for quick implementation. mostly used with interfaces and abstract classes. 
-eg. Event handling in GUI applications
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();
+    }
+}
+```
+---
+### Q3 : What are default methods in interfaces? How do they work?
+
+- Introduced in Java 8.
+- Allows you to add new methods to interfaces without breaking existing implementations.
+- Helpful when many classes implement the same interface and you want to add a new method.
+
+```java
+interface Vehicle {
+    default void start() {
+        System.out.println("Vehicle is starting...");
+    }
+}
+
+```
+---
+### Q4: Can an abstract class have a constructor? Why or why not?
+
+- ✅ Yes, an abstract class can have a constructor.
+- It is used to initialize instance variables.
+- When the subclass is instantiated, the super() constructor is implicitly or explicitly called.
+
+```java
+abstract class Shape {
+    Shape() {
+        System.out.println("Shape constructor called.");
+    }
+}
+
+class Circle extends Shape {
+    Circle() {
+        super(); // Optional
+        System.out.println("Circle constructor called.");
+    }
+}
+```
+---
+### Q5: Difference Between Static Methods in Class vs Interface
+
+| Aspect       | Static Method in Class                      | Static Method in Interface                  |
+|--------------|----------------------------------------------|---------------------------------------------|
+| Inheritance  | Not inherited by subclass                   | Not inherited by implementing class         |
+| Access       | Accessed via class name                     | Accessed via interface name                 |
+| Overridable  | Cannot be overridden                        | Cannot be overridden                        |
+
+---
+###  Q6: Explain Access Modifiers in Java and Where They Can Be Applied
+
+Access Modifiers control the visibility of **classes**, **methods**, **variables**, and **constructors** in Java.
+
+| Modifier   | Class | Package | Subclass | World |
+|------------|:-----:|:-------:|:--------:|:-----:|
+| `public`   | ✅     | ✅      | ✅       | ✅     |
+| `protected`| ❌     | ✅      | ✅       | ❌     |
+| `default`  | ❌     | ✅      | ❌       | ❌     |
+| `private`  | ❌     | ❌      | ❌       | ❌     |
+
+### ✅ Access Modifiers Can Be Applied To:
+
+- **Classes**
+- **Methods**
+- **Variables**
+- **Constructors**
+---
+###  Q7: What is the Purpose of a Static Block? When Does It Execute?
+
+- A **static block** is used for static initialization of a class.
+- It is executed **once** when the class is **loaded**, before constructors or objects are created.
+- Often used for tasks like loading configurations or connecting to a database.
+
+```java
+class App {
+    static {
+        System.out.println("Static block executed!");
+    }
+
+    App() {
+        System.out.println("Constructor called.");
+    }
+}
+```
+---
+###  Q8: Can a Static Method Access Instance Variables? Why or Why Not?
+
+❌ **No**, static methods **cannot** access instance variables **directly**.
+
+- Static methods belong to the **class**, while instance variables belong to an **object**.
+- To access instance variables, you must use an **object reference**.
+
+```java
+class Example {
+    int count = 10;
+
+    static void display() {
+        // System.out.println(count); // ❌ Error: Cannot make a static reference to the non-static field 'count'
+    }
+}
+```
+--- 
+###  Q9: What Are Inner Classes? Name the Four Types of Inner Classes in Java
+
+**Inner classes** are classes defined **inside another class**.
+
+📌 **Types of Inner Classes**:
+
+1. **Member (Non-static) Inner Class**
+2. **Static Nested Class**
+3. **Local Inner Class** (defined inside methods)
+4. **Anonymous Inner Class** (no name, used for one-time use)
+---
+###  Q10: What is an Anonymous Inner Class? Give a Real-World Example Where It's Useful
+
+An **anonymous inner class** is a class **without a name** and is **defined and instantiated in a single statement**.
+
+✅ **Commonly used** for quick implementations of **interfaces** or **abstract classes**.
+
+🎯 **Useful in event handling**, such as in **GUI programming**.
+
+```java
+Button b = new Button("Click Me");
+
+b.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Button clicked!");
+    }
+});
+
+
+
+
