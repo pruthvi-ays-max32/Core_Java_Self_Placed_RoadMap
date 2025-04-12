@@ -49,3 +49,46 @@ The `Collections` class in Java is a part of the **Java Collections Framework** 
 List<String> names = Arrays.asList("John", "Alice", "Bob");
 Collections.sort(names);
 System.out.println(names); // [Alice, Bob, John]
+```
+
+### 🔄 Reversing a List
+
+```java
+Collections.reverse(names);
+System.out.println(names); // [John, Bob, Alice]
+```
+
+### 🎲 Shuffling a List
+
+```java
+Collections.shuffle(names);
+System.out.println(names); // Random order
+```
+
+### 🔁 Swapping Elements
+
+```java
+Collections.swap(names, 0, 2);
+System.out.println(names);
+```
+
+### 🔒 Making List Thread-Safe
+
+```java
+List<String> syncList = Collections.synchronizedList(new ArrayList<>());
+```
+
+### 🧵 Thread-Safety and Immutability
+
+- Use `synchronizedList()`, `synchronizedSet()`, etc., for thread-safe operations.
+- Use `unmodifiableList()` to return read-only views of a collection.
+
+### 📌 Notes
+- Most methods throw `NullPointerException` if the collection contains `null` and the operation does not permit it.
+- Many methods are generic and work with any type of objects.
+
+### 📬 When to Use
+- Need to quickly manipulate data structures (sort, reverse, shuffle).
+- Need a synchronized or immutable version of your collection.
+- Want to reduce boilerplate code using built-in utilities.
+
