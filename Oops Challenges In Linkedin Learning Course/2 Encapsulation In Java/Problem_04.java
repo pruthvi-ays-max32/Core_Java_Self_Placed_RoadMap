@@ -5,7 +5,7 @@
 
 class BankAccount {
   private String accountNumber;
-  private double balance;
+  private double balance; 
 
   BankAccount(){
     this("Unknown", 0.0);
