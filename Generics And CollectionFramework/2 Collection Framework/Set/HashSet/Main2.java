@@ -17,7 +17,7 @@
 import java.util.HashSet;
 import java.util.Set;
 
-class Main {
+class Main2 {
   public static void main(String args[]){
     //1️⃣ Create a HashSet<Integer> for student IDs.
     Set <Integer> studentIds = new HashSet<>();

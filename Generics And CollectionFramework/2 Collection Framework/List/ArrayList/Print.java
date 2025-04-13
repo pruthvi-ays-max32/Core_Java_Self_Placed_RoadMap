@@ -11,7 +11,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Main {
+class Print {
   public static void main(String args[]){
 
     // Create an ArrayList of Strings.

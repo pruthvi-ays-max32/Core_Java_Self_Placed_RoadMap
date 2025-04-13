@@ -8,7 +8,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-class Main {
+class AdditionalListMethods {
     public static void main(String[] args) {
         List <Integer> list = new ArrayList<>();
         list.add(34);
