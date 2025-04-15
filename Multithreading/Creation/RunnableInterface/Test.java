@@ -3,7 +3,7 @@
     Thread Creation Using Runnable Interface.
 */
 
-// package Multithreading.Creation.RunnableInterface;
+package Multithreading.Creation.RunnableInterface;
 
 public class Test {
   public static void main(String[] args) {
